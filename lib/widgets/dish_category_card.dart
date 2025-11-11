@@ -1,4 +1,6 @@
+// lib/widgets/dish_category_card.dart
 import 'package:flutter/material.dart';
+import '../core/image_loader.dart';
 
 class DishCategoryCard extends StatelessWidget {
   final String title;
@@ -18,16 +20,13 @@ class DishCategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Colors
     const Color gray = Color(0xFFE6EAEE);
     const Color borderGray = Color(0xFFD8DEE4);
 
-    // Sizes
-    const double circleSize = 112.0; // round dish diameter
+    const double circleSize = 112.0;
     const double cardRadius = 18.0;
 
     const double gapBetweenCircleAndCard = 6.0;
-
     const double cardHeight = 188.0;
     const double cardTopOffset = circleSize / 2 + gapBetweenCircleAndCard;
     const double totalHeight = cardTopOffset + cardHeight;
@@ -80,10 +79,8 @@ class DishCategoryCard extends StatelessWidget {
                         const SizedBox(height: 14),
                         const Align(
                           alignment: Alignment.centerLeft,
-                          child: Text(
-                            'Time',
-                            style: TextStyle(color: Colors.black38),
-                          ),
+                          child: Text('Time',
+                              style: TextStyle(color: Colors.black38)),
                         ),
                         const SizedBox(height: 6),
                         Row(
@@ -91,9 +88,7 @@ class DishCategoryCard extends StatelessWidget {
                             Text(
                               time,
                               style: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w800,
-                              ),
+                                  fontSize: 14, fontWeight: FontWeight.w800),
                             ),
                             const Spacer(),
                             Container(
@@ -112,11 +107,10 @@ class DishCategoryCard extends StatelessWidget {
                                 ],
                               ),
                               alignment: Alignment.center,
-                              child: Image.asset(
-                                'assets/inactive_bookmark.png',
-                                width: 16,
-                                height: 16,
-                              ),
+                              child: const UiImage(
+                                  'assets/inactive_bookmark.png',
+                                  width: 16,
+                                  height: 16),
                             ),
                           ],
                         ),
@@ -150,7 +144,7 @@ class DishCategoryCard extends StatelessWidget {
                             ],
                           ),
                           child: ClipOval(
-                            child: Image.asset(image, fit: BoxFit.cover),
+                            child: UiImage(image, fit: BoxFit.cover),
                           ),
                         ),
                       ),
@@ -159,9 +153,7 @@ class DishCategoryCard extends StatelessWidget {
                         right: 10,
                         child: Container(
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 6,
-                            vertical: 4,
-                          ),
+                              horizontal: 6, vertical: 4),
                           decoration: BoxDecoration(
                             color: const Color(0xFFFCE8CC),
                             borderRadius: BorderRadius.circular(16),
@@ -175,7 +167,7 @@ class DishCategoryCard extends StatelessWidget {
                           ),
                           child: Row(
                             children: [
-                              Image.asset('assets/star.png',
+                              const UiImage('assets/star.png',
                                   width: 11, height: 11),
                               const SizedBox(width: 4),
                               Text(

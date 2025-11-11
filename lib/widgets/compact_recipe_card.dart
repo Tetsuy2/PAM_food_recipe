@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../core/image_loader.dart';
 
 class CompactRecipeCard extends StatelessWidget {
   final String title;
@@ -26,13 +27,12 @@ class CompactRecipeCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: const [
           BoxShadow(
-              blurRadius: 24, color: Color(0x18000000), offset: Offset(0, 12)),
+              blurRadius: 24, color: Color(0x18000000), offset: Offset(0, 12))
         ],
       ),
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          // text and meta
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -42,33 +42,27 @@ class CompactRecipeCard extends StatelessWidget {
                   style: const TextStyle(
                       fontWeight: FontWeight.w800, fontSize: 16)),
               const SizedBox(height: 6),
-              // 5 stars (yellow star png)
               Row(
-                children: List.generate(
-                  5,
-                  (_) => Padding(
-                    padding: const EdgeInsets.only(right: 2),
-                    child:
-                        Image.asset('assets/star.png', width: 12, height: 12),
-                  ),
-                ),
-              ),
+                  children: List.generate(
+                      5,
+                      (_) => const Padding(
+                          padding: EdgeInsets.only(right: 2),
+                          child: UiImage('assets/star.png',
+                              width: 18, height: 18)))),
               const SizedBox(height: 10),
               Row(
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Image.asset(authorImage,
-                        width: 22, height: 22, fit: BoxFit.cover),
-                  ),
+                      borderRadius: BorderRadius.circular(12),
+                      child: UiImage(authorImage,
+                          width: 22, height: 22, fit: BoxFit.cover)),
                   const SizedBox(width: 8),
                   Expanded(
-                    child: Text('By $authorName',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(color: Colors.black54)),
-                  ),
-                  Image.asset('assets/timer.png',
+                      child: Text('By $authorName',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(color: Colors.black54))),
+                  const UiImage('assets/timer.png',
                       width: 14, height: 14, color: Colors.black45),
                   const SizedBox(width: 6),
                   Text(time, style: const TextStyle(color: Colors.black54)),
@@ -76,7 +70,6 @@ class CompactRecipeCard extends StatelessWidget {
               ),
             ],
           ),
-          // round dish image
           Positioned(
             right: -10,
             top: -28,
@@ -84,17 +77,14 @@ class CompactRecipeCard extends StatelessWidget {
               width: 80,
               height: 80,
               decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                      blurRadius: 14,
-                      color: Color(0x22000000),
-                      offset: Offset(0, 8)),
-                ],
-              ),
-              child: ClipOval(
-                child: Image.asset(dishImage, fit: BoxFit.cover),
-              ),
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                        blurRadius: 14,
+                        color: Color(0x22000000),
+                        offset: Offset(0, 8))
+                  ]),
+              child: ClipOval(child: UiImage(dishImage, fit: BoxFit.cover)),
             ),
           ),
         ],

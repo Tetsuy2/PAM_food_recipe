@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import '../core/image_loader.dart';
 
 class SearchBarX extends StatelessWidget {
-  const SearchBarX({super.key});
+  final String hintText;
+  final ValueChanged<String> onChanged;
+
+  const SearchBarX({
+    super.key,
+    required this.hintText,
+    required this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,16 +28,17 @@ class SearchBarX extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 14),
             child: Row(
               children: [
-                Image.asset('assets/search-normal.png',
+                const UiImage('assets/search-normal.png',
                     width: iconSize, height: iconSize, color: Colors.black45),
                 const SizedBox(width: 10),
-                const Expanded(
+                Expanded(
                   child: TextField(
                     cursorColor: Colors.black54,
+                    onChanged: onChanged,
                     decoration: InputDecoration(
                       isCollapsed: true,
-                      hintText: 'Search recipe',
-                      hintStyle: TextStyle(color: Colors.black45),
+                      hintText: hintText,
+                      hintStyle: const TextStyle(color: Colors.black45),
                       border: InputBorder.none,
                     ),
                   ),
@@ -53,7 +62,7 @@ class SearchBarX extends StatelessWidget {
             ],
           ),
           alignment: Alignment.center,
-          child: Image.asset('assets/setting.png',
+          child: const UiImage('assets/setting.png',
               width: iconSize, height: iconSize, color: Colors.white),
         ),
       ],

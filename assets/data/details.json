@@ -1,0 +1,73 @@
+[
+  {
+    "recipe": {
+      "id": 101,
+      "title": "Spicy chicken burger with French fries",
+      "image": "assets/food_banner.png",
+      "rating": 4.6,
+      "reviews": "13k Reviews",
+      "cook_time": "20 min",
+      "is_bookmarked": false
+    },
+    "chef": {
+      "name": "Laura Wilson",
+      "profile_image": "assets/profile.png",
+      "location": "Lagos, Nigeria",
+      "is_following": false
+    },
+    "ingredients": [
+      { "name": "Tomatos", "quantity": "500g", "icon": "assets/tomatos.png" },
+      { "name": "Cabbage", "quantity": "300g", "icon": "assets/cabbage.png" },
+      { "name": "Taco",    "quantity": "300g", "icon": "assets/taco.png" },
+      { "name": "Slice Bread", "quantity": "300g", "icon": "assets/bread.png" }
+    ],
+    "steps": [
+      "Slice tomatoes and cabbage.",
+      "Grill chicken until golden.",
+      "Assemble bun, add sauce, serve hot."
+    ]
+  },
+  {
+    "recipe": {
+      "id": 102,
+      "title": "Classic Greek Salad",
+      "image": "assets/food_banner.png",
+      "rating": 4.5,
+      "reviews": "8k Reviews",
+      "cook_time": "15 min",
+      "is_bookmarked": false
+    },
+    "chef": {
+      "name": "Akira Tanaka",
+      "profile_image": "assets/user1.png",
+      "location": "Osaka, Japan",
+      "is_following": false
+    },
+    "ingredients": [
+      { "name": "Tomatos", "quantity": "300g" },
+      { "name": "Slice Bread", "quantity": "150g" }
+    ],
+    "steps": ["Chop, mix, season, serve."]
+  },
+  {
+    "recipe": {
+      "id": 103,
+      "title": "Crunchy Nut Coleslaw",
+      "image": "assets/food_banner.png",
+      "rating": 3.8,
+      "reviews": "4k Reviews",
+      "cook_time": "10 min",
+      "is_bookmarked": false
+    },
+    "chef": {
+      "name": "Marta Rossi",
+      "profile_image": "assets/user2.png",
+      "location": "Milan, Italy",
+      "is_following": true
+    },
+    "ingredients": [
+      { "name": "Cabbage", "quantity": "400g" }
+    ],
+    "steps": ["Slice and mix with dressing."]
+  }
+]

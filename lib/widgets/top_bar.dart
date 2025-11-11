@@ -1,26 +1,34 @@
 import 'package:flutter/material.dart';
+import '../core/image_loader.dart';
 
 class TopBar extends StatelessWidget {
-  const TopBar({super.key});
+  final String name;
+  final String greeting;
+  final String profileImage;
+  const TopBar({
+    super.key,
+    required this.name,
+    required this.greeting,
+    required this.profileImage,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.fromLTRB(32, 22, 32, 24),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(32, 22, 32, 24),
       child: Row(
         children: [
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Text('Hello $name',
+                    style: const TextStyle(
+                        fontSize: 26, fontWeight: FontWeight.w800)),
+                const SizedBox(height: 8),
                 Text(
-                  'Hello Jega',
-                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.w800),
-                ),
-                SizedBox(height: 8),
-                Text(
-                  'What are you cooking today?',
-                  style: TextStyle(
+                  greeting,
+                  style: const TextStyle(
                     color: Color(0x99000000),
                     fontSize: 14.5,
                     height: 1.2,
@@ -29,7 +37,7 @@ class TopBar extends StatelessWidget {
               ],
             ),
           ),
-          _Avatar(),
+          _Avatar(src: profileImage),
         ],
       ),
     );
@@ -37,7 +45,8 @@ class TopBar extends StatelessWidget {
 }
 
 class _Avatar extends StatelessWidget {
-  const _Avatar();
+  final String src;
+  const _Avatar({required this.src});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +55,7 @@ class _Avatar extends StatelessWidget {
       height: 44,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12),
-        child: Image.asset('assets/profile.png', fit: BoxFit.cover),
+        child: UiImage(src, fit: BoxFit.cover),
       ),
     );
   }

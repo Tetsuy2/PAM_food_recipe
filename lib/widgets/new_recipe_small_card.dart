@@ -1,15 +1,16 @@
+// lib/widgets/new_recipe_small_card.dart
 import 'package:flutter/material.dart';
+import '../core/image_loader.dart';
 
 class NewRecipeSmallCard extends StatelessWidget {
   final String title;
   final String dishImage;
-  final String authorImage;
+  final String authorImage; // may be empty; we hard-fallback below
   final String authorName;
   final String time;
   final VoidCallback onTap;
 
-  // ---------- Tunables ----------
-  // Card rectangle
+  // layout
   final double cardWidth;
   final double vPadTop;
   final double vPadBottom;
@@ -18,29 +19,29 @@ class NewRecipeSmallCard extends StatelessWidget {
   final double cardRightMargin;
   final double cardRadius;
 
-  // Circle
+  // circle
   final double circleSize;
-  final double circleRightOffset; // (further right/outside)
-  final double circleTopOffset; // (higher)
+  final double circleRightOffset;
+  final double circleTopOffset;
   final double circleShadowBlur;
   final double circleShadowOffsetY;
 
-  // Typography
+  // type
   final double titleFontSize;
   final FontWeight titleWeight;
 
+  // stars
   final int starCount;
-  final double starSize;
+  final double starSize; // true icon size
   final double starGap;
 
-  // Meta row
+  // meta
   final double authorAvatarSize;
   final double metaFontSize;
   final FontWeight metaWeight;
   final double timeIconSize;
   final double timeIconTextGap;
 
-  // Shadows
   final List<BoxShadow> cardShadows;
 
   const NewRecipeSmallCard({
@@ -51,8 +52,6 @@ class NewRecipeSmallCard extends StatelessWidget {
     required this.authorName,
     required this.time,
     required this.onTap,
-
-    // Card rectangle
     this.cardWidth = 308,
     this.vPadTop = 12,
     this.vPadBottom = 12,
@@ -60,31 +59,21 @@ class NewRecipeSmallCard extends StatelessWidget {
     this.rightPadForCircle = 136,
     this.cardRightMargin = 22,
     this.cardRadius = 16,
-
-    // Circle pose
     this.circleSize = 122,
     this.circleRightOffset = -124,
     this.circleTopOffset = -55,
     this.circleShadowBlur = 22,
     this.circleShadowOffsetY = 12,
-
-    // Type
     this.titleFontSize = 16,
     this.titleWeight = FontWeight.w800,
-
-    // Stars
     this.starCount = 5,
-    this.starSize = 18,
+    this.starSize = 15,
     this.starGap = 2,
-
-    // Meta row (avatar + time)
     this.authorAvatarSize = 22,
     this.metaFontSize = 13,
     this.metaWeight = FontWeight.w600,
     this.timeIconSize = 14,
     this.timeIconTextGap = 3,
-
-    // Card shadow
     this.cardShadows = const [
       BoxShadow(
           color: Color(0x1F000000), blurRadius: 28, offset: Offset(0, 14)),
@@ -101,11 +90,7 @@ class NewRecipeSmallCard extends StatelessWidget {
         width: cardWidth,
         margin: EdgeInsets.only(right: cardRightMargin),
         padding: EdgeInsets.fromLTRB(
-          hPadLeft,
-          vPadTop,
-          rightPadForCircle,
-          vPadBottom,
-        ),
+            hPadLeft, vPadTop, rightPadForCircle, vPadBottom),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(cardRadius),
@@ -114,12 +99,10 @@ class NewRecipeSmallCard extends StatelessWidget {
         child: Stack(
           clipBehavior: Clip.none,
           children: [
-            // -------- Content column --------
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                // Title
                 Text(
                   title,
                   maxLines: 1,
@@ -128,8 +111,6 @@ class NewRecipeSmallCard extends StatelessWidget {
                       fontWeight: titleWeight, fontSize: titleFontSize),
                 ),
                 const SizedBox(height: 6),
-
-                // Stars
                 Row(
                   children: List.generate(
                     starCount,
@@ -138,7 +119,7 @@ class NewRecipeSmallCard extends StatelessWidget {
                       child: SizedBox(
                         width: starSize,
                         height: starSize,
-                        child: Image.asset(
+                        child: const UiImage(
                           'assets/star.png',
                           fit: BoxFit.contain,
                           filterQuality: FilterQuality.high,
@@ -147,18 +128,22 @@ class NewRecipeSmallCard extends StatelessWidget {
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 10),
                 Row(
                   children: [
-                    // Author
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
+                    // Avatar with hard fallback to user1.png if missing/bad path
+                    ClipOval(
                       child: Image.asset(
-                        authorImage,
+                        authorImage.isEmpty ? 'assets/user1.png' : authorImage,
                         width: authorAvatarSize,
                         height: authorAvatarSize,
                         fit: BoxFit.cover,
+                        errorBuilder: (_, __, ___) => Image.asset(
+                          'assets/user1.png',
+                          width: authorAvatarSize,
+                          height: authorAvatarSize,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                     const SizedBox(width: 8),
@@ -174,12 +159,10 @@ class NewRecipeSmallCard extends StatelessWidget {
                         ),
                       ),
                     ),
-
-                    // Time
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Image.asset(
+                        UiImage(
                           'assets/timer.png',
                           width: timeIconSize,
                           height: timeIconSize,
@@ -200,27 +183,22 @@ class NewRecipeSmallCard extends StatelessWidget {
                 ),
               ],
             ),
-
-            // -------- Circle
             Positioned(
               right: circleRightOffset,
               top: circleTopOffset,
               child: Container(
                 width: circleSize,
                 height: circleSize,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
-                      blurRadius: circleShadowBlur,
-                      color: const Color(0x26000000),
-                      offset: Offset(0, circleShadowOffsetY),
-                    ),
+                        blurRadius: 22,
+                        color: Color(0x26000000),
+                        offset: Offset(0, 12)),
                   ],
                 ),
-                child: ClipOval(
-                  child: Image.asset(dishImage, fit: BoxFit.cover),
-                ),
+                child: ClipOval(child: UiImage(dishImage, fit: BoxFit.cover)),
               ),
             ),
           ],

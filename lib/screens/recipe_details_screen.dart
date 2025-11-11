@@ -1,45 +1,73 @@
-import 'package:flutter/material.dart';
-import '../widgets/recipe_details_page.dart';
+﻿import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class RecipeDetailsScreen extends StatelessWidget {
-  static const route = '/recipe';
-  const RecipeDetailsScreen({super.key});
+import 'package:ui_components/features/details/bloc/details_bloc.dart';
+import 'package:ui_components/features/details/bloc/details_event.dart';
+import 'package:ui_components/features/details/bloc/details_state.dart';
+import 'package:ui_components/widgets/recipe_details_page.dart';
+
+class RecipeDetailsScreen extends StatefulWidget {
+  const RecipeDetailsScreen({super.key, required this.recipeId});
+  final int recipeId;
+
+  @override
+  State<RecipeDetailsScreen> createState() => _RecipeDetailsScreenState();
+}
+
+class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<DetailsBloc>().add(DetailsRequested(widget.recipeId));
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_rounded),
-          onPressed: () => Navigator.pop(context),
-        ),
-        actions: const [
-          Padding(
-            padding: EdgeInsets.only(right: 8),
-            child: Icon(Icons.more_horiz),
-          ),
-        ],
-      ),
-      body: const RecipeDetailsPage(
-        title: 'Spicy chicken burger\nwith French fries',
-        bannerImage: 'assets/food_banner.png',
-        gradientOverlay: 'assets/gradient_food-banner.png',
-        rating: 4.0,
-        timeLabel: '20 min',
-        authorName: 'Laura wilson',
-        authorAvatar: 'assets/user2.png',
-        locationLabel: 'Lagos, Nigeria',
-        reviewsLabel: '(13k Reviewers)',
-        ingredients: [
-          IngredientItem(
-              image: 'assets/tomatos.png', name: 'Tomatos', amount: '500g'),
-          IngredientItem(
-              image: 'assets/cabbage.png', name: 'Cabbage', amount: '300g'),
-          IngredientItem(
-              image: 'assets/taco.png', name: 'Taco', amount: '300g'),
-          IngredientItem(
-              image: 'assets/bread.png', name: 'Slice Bread', amount: '300g'),
-        ],
+      backgroundColor: Colors.white,
+      body: BlocBuilder<DetailsBloc, DetailsState>(
+        builder: (context, state) {
+          if (state is DetailsLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (state is DetailsError) {
+            return Center(
+              child: Text(state.message,
+                  style: const TextStyle(color: Colors.red)),
+            );
+          }
+
+          final s = state as DetailsLoaded;
+          final d = s.data;
+
+          // 2-line title exactly as requested
+          const String title = 'Spicy chicken burger\nwith French fries';
+
+          return RecipeDetailsPage(
+            title: title,
+            bannerImage: d.recipe.image,
+            gradientOverlay: 'assets/gradient_food-banner.png',
+            rating: d.recipe.rating,
+            timeLabel: d.recipe.cookTimeLabel, // shown on banner bottom-right
+            authorName: d.chef.name,
+            authorAvatar: (d.chef.profileImage.isEmpty)
+                ? 'assets/user2.png'
+                : d.chef.profileImage,
+            locationLabel: d.chef.location,
+            reviewsLabel: '(13k Reviewers)', // parentheses
+            ingredients: [
+              for (final it in d.ingredients)
+                IngredientTileData(
+                  image: (it.icon.isEmpty || it.icon == '...')
+                      ? 'assets/bread.png'
+                      : it.icon,
+                  name: it.name,
+                  amount: it.quantity,
+                ),
+            ],
+            steps: d.steps,
+          );
+        },
       ),
     );
   }

@@ -1,0 +1,63 @@
+{
+  "user": {
+    "name": "Jega",
+    "profile_image": "https://randomuser.me/api/portraits/men/45.jpg",
+    "greeting": "What are you cooking today?"
+  },
+  "filters": {
+    "search_placeholder": "Search recipe",
+    "categories": [
+      { "id": 1, "name": "All", "selected": true },
+      { "id": 2, "name": "Indian", "selected": false },
+      { "id": 3, "name": "Italian", "selected": false },
+      { "id": 4, "name": "Asian", "selected": false },
+      { "id": 5, "name": "Chinese", "selected": false }
+    ]
+  },
+  "recipes": [
+    {
+      "id": 101,
+      "name": "Classic Greek Salad",
+      "rating": 4.5,
+      "time": "15 Mins",
+      "is_bookmarked": false,
+      "image": "https://images.pexels.com/photos/1437267/pexels-photo-1437267.jpeg"
+    },
+    {
+      "id": 102,
+      "name": "Crunchy Nut Coleslaw",
+      "rating": 3.5,
+      "time": "10 Mins",
+      "is_bookmarked": false,
+      "image": "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg"
+    },
+    {
+      "id": 103,
+      "name": "Fresh Caprese Skewers",
+      "rating": 4.2,
+      "time": "12 Mins",
+      "is_bookmarked": false,
+      "image": "assets/food_banner.png"
+    }
+  ],
+  "new_recipes": [
+    {
+      "id": 201,
+      "name": "Steak with tomato sauce",
+      "rating": 5,
+      "author": "James Milner",
+      "time": "20 mins",
+      "image": "https://images.pexels.com/photos/616355/pexels-photo-616355.jpeg",
+      "author_image": "https://randomuser.me/api/portraits/men/32.jpg"
+    },
+    {
+      "id": 202,
+      "name": "Pilaf served with sauce",
+      "rating": 4.5,
+      "author": "Laura Chen",
+      "time": "25 mins",
+      "image": "https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg",
+      "author_image": "https://randomuser.me/api/portraits/women/12.jpg"
+    }
+  ]
+}

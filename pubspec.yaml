@@ -1,7 +1,8 @@
+# pubspec.yaml
 name: ui_components
 description: Figma-accurate food UI
 publish_to: 'none'
-version: 1.0.0+1
+version: 1.0.0+2
 
 environment:
   sdk: '>=3.2.0 <4.0.0'
@@ -10,6 +11,8 @@ dependencies:
   flutter:
     sdk: flutter
   google_fonts: ^6.2.1
+  flutter_bloc: ^9.0.0
+  equatable: ^2.0.5
 
 dev_dependencies:
   flutter_test:
@@ -19,20 +22,24 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/user1.png
-    - assets/user2.png
-    - assets/profile.png
-    - assets/tomatos.png
-    - assets/taco.png
-    - assets/cabbage.png
+    - assets/bell.png
     - assets/bread.png
-    - assets/new_food3.png
+    - assets/cabbage.png
     - assets/food_banner.png
     - assets/gradient_food-banner.png
-    - assets/setting.png
-    - assets/timer.png
-    - assets/star.png
-    - assets/location.png
-    - assets/bell.png
     - assets/inactive_bookmark.png
+    - assets/location.png
+    - assets/new_food1.png
+    - assets/new_food2.png
+    - assets/new_food3.png
+    - assets/profile.png
     - assets/search-normal.png
+    - assets/setting.png
+    - assets/star.png
+    - assets/taco.png
+    - assets/timer.png
+    - assets/tomatos.png
+    - assets/user1.png
+    - assets/user2.png
+    - assets/data/list.json
+    - assets/data/details.json

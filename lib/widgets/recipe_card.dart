@@ -1,4 +1,6 @@
+// only change: badge star size from 12 -> 16
 import 'package:flutter/material.dart';
+import '../core/image_loader.dart';
 
 class RecipeCard extends StatelessWidget {
   final String title;
@@ -29,10 +31,7 @@ class RecipeCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           boxShadow: const [
             BoxShadow(
-              blurRadius: 12,
-              color: Color(0x11000000),
-              offset: Offset(0, 6),
-            ),
+                blurRadius: 12, color: Color(0x11000000), offset: Offset(0, 6))
           ],
         ),
         child: Stack(
@@ -45,38 +44,32 @@ class RecipeCard extends StatelessWidget {
                   child: Container(
                     width: 112,
                     height: 112,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
-                      boxShadow: const [
+                      boxShadow: [
                         BoxShadow(
-                          blurRadius: 16,
-                          color: Color(0x14000000),
-                          offset: Offset(0, 6),
-                        ),
+                            blurRadius: 16,
+                            color: Color(0x14000000),
+                            offset: Offset(0, 6))
                       ],
-                      image: DecorationImage(
-                        image: AssetImage(image),
-                        fit: BoxFit.cover,
-                      ),
                     ),
+                    child: ClipOval(child: UiImage(image, fit: BoxFit.cover)),
                   ),
                 ),
                 const SizedBox(height: 12),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12),
-                  child: Text(
-                    title,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(fontWeight: FontWeight.w800),
-                  ),
+                  child: Text(title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(fontWeight: FontWeight.w800)),
                 ),
                 const SizedBox(height: 6),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: Row(
                     children: [
-                      Image.asset('assets/timer.png', width: 14, height: 14),
+                      const UiImage('assets/timer.png', width: 14, height: 14),
                       const SizedBox(width: 6),
                       Text(time, style: const TextStyle(color: Colors.black54)),
                       const Spacer(),
@@ -94,17 +87,14 @@ class RecipeCard extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFFCE8CC),
-                  borderRadius: BorderRadius.circular(20),
-                ),
+                    color: const Color(0xFFFCE8CC),
+                    borderRadius: BorderRadius.circular(20)),
                 child: Row(
                   children: [
-                    Image.asset('assets/star.png', width: 12, height: 12),
+                    const UiImage('assets/star.png', width: 16, height: 16),
                     const SizedBox(width: 4),
-                    Text(
-                      rating.toStringAsFixed(1),
-                      style: const TextStyle(fontWeight: FontWeight.w700),
-                    ),
+                    Text(rating.toStringAsFixed(1),
+                        style: const TextStyle(fontWeight: FontWeight.w700)),
                   ],
                 ),
               ),
